@@ -24,6 +24,13 @@ def show_post_list():
 def show_post(post_name=None):
     return "This is post about {}".format(post_name)
 
+# Show comments of specific post from json placeholder
+@app.route('/post/<int:post_num>/comments')
+def show_comments(post_num):
+    response = requests.get('https://jsonplaceholder.typicode.com/posts/{}/comments'.format(post_num))
+    to_serve = response.json()
+    return jsonify(to_serve)
+
 # Do app.run() at __main__ entry point.
 # Protect users from accidentally invoking the script when they didn't intend to.
 if __name__=='__main__':
