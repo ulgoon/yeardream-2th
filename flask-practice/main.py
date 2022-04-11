@@ -31,6 +31,43 @@ def show_comments(post_num):
     to_serve = response.json()
     return jsonify(to_serve)
 
+# rendering with template
+
+# data
+# TODO: Connect sqlite3 or mongodb and import data from it.
+product_list = [
+  {
+    'product_id': 10000001,
+    'product_name': 'shoes',
+    'price': 12000,
+    'currency': 'KRW',
+  },
+  {
+    'product_id': 10000002,
+    'product_name': 'cap',
+    'price': 25.99,
+    'currency': 'USD',
+  },
+  {
+    'product_id': 10000003,
+    'product_name': 'pants',
+    'price': 40000,
+    'currency': 'KRW',
+  },
+]
+
+# get all products
+@app.route('/products')
+def show_product_list():
+  result={'items':product_list}
+  return render_template('products.html', items=result)
+
+# get product detail
+@app.route('/products/<int:product_id>')
+def show_product(product_id=None):
+  result = next(item for item in product_list if item['product_id']==product_id)
+  return render_template('product.html',item=result)
+
 # Do app.run() at __main__ entry point.
 # Protect users from accidentally invoking the script when they didn't intend to.
 if __name__=='__main__':
