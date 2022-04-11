@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import requests
 
 # Create instance of the Flask object
@@ -10,7 +10,7 @@ app = Flask(__name__)
 # first flask route
 @app.route('/')
 def index():
-    return "flask works!"
+    return render_template('index.html')
 
 # relay external data
 @app.route('/posts')
